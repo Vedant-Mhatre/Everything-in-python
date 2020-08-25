@@ -24,3 +24,12 @@ gdict = { "a" : set(["b","c"]),
                 }
 
 dfs(gdict, 'a')
+
+'''
+output:
+a
+b
+d
+e
+c
+'''
