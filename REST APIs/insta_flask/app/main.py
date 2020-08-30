@@ -1,6 +1,6 @@
 import os
-from flask import Flask, redirect, url_for, request, render_template
-from flask_restful import Api, Resource
+from flask import Flask, redirect, url_for, request, render_template, abort
+from flask_restful import Api, Resource, reqparse
 from pymongo import MongoClient
 
 
@@ -17,10 +17,30 @@ Users = db.tododb.find()
 # 		"user2": {"email":"user2@gmail.com", "username":"User 2"},
 # 		}
 
+posts = {
+
+}
+
+post_put_args = reqparse.RequestParser()
+post_put_args.add_argument("likes", type=int, required=True)
+post_put_args.add_argument("comments", type=int, required=True)
+
+class Post(Resource):
+	def get(self, id):
+		if id not in posts:
+			abort(404)
+		else:
+			return posts[id]
+
+	def put(self,id):
+		args = post_put_args.parse_args()
+		posts[id] = args
+		return posts[id], 201
+
 class User(Resource):
 	def get(self, name):
 		if name not in Users:
-			return None
+			abort(404)
 		else:
 			return Users[name]
 
@@ -41,8 +61,9 @@ class Index(Resource):
 		users = [user for user in Users]
 		return users
 
-api.add_resource(User, "/<string:name>")
 api.add_resource(Index, "/")
+api.add_resource(User, "/<string:name>")
+api.add_resource(Post, "/p/<string:id>")
 
 
 if __name__ == "__main__":
