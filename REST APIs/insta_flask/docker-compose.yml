@@ -1,6 +1,6 @@
 version: "3"
 services:
-  web:
-    build: .
+  insta_flask:
+    build: ./app
     ports: ['5000:5000']
-    volumes: ['.:/']
+    volumes: ['./app:/app']

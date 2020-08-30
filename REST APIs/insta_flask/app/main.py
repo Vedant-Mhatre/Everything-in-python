@@ -6,12 +6,12 @@ api = Api(app)
 
 Users = {"user1": {"email":"user1@gmail.com", "username":"User 1"},
 		"user2": {"email":"user2@gmail.com", "username":"User 2"},
-				}
+		}
 
 class User(Resource):
 	def get(self, name):
 		return Users[name]
-		
+
 	def post(self):
 		return {"userid": "0"}
 
