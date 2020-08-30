@@ -1,0 +1,10 @@
+<form action="/new" method="POST">
+  <input type="text" name="name"></input>
+  <input type="text" name="description"></input>
+  <input type="submit"></input>
+</form>
+
+{% for user in users %}
+  <h1> {{ user.username }} </h1>
+  <p> {{ user.email }} <p>
+{% endfor %}
