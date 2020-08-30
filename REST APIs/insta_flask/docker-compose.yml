@@ -1,9 +1,11 @@
-version: "3"
-services:
-  app:
-    build: ./app
-    ports: ['5000:5000']
-    volumes: ['./app:/app']
-    links: db
-  db:
-    image: mongo:3.0.2
+app:
+  build: ./app
+  command: python3 main.py
+  ports:
+    - "5000:5000"
+  volumes:
+    - ./app:/app
+  links:
+    - db
+db:
+  image: mongo:3.0.2
