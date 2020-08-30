@@ -1,12 +1,10 @@
-FROM python:3.8-alpine AS baseimage
-
-WORKDIR app
-
+FROM python:3.8-alpine as baseimage
+COPY requirements.txt .
 RUN pip install -r requirements.txt
+WORKDIR app
+COPY . .
 
-FROM baseimage AS runtimeimage
+FROM baseimage as runtimeimage
 
-#ENV FLASK_APP=main.py
-#ENV FLASK_ENV=development
 EXPOSE 5000
 CMD python3 main.py
