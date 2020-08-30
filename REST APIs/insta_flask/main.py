@@ -5,7 +5,7 @@ app = Flask(__name__)
 api = Api(app)
 
 Users = {"user1": {"email":"user1@gmail.com", "username":"User 1"},
-				"user2": {"email":"user2@gmail.com", "username":"User 2"},
+		"user2": {"email":"user2@gmail.com", "username":"User 2"},
 				}
 
 class User(Resource):
