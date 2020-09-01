@@ -2,9 +2,16 @@ import requests
 
 BASE = "http://0.0.0.0:5000"
 
-response = requests.put(BASE + "/p/asdasd",{"likes":100, "comments":12})
+print(f"{BASE} + /p/ashok")
+response = requests.put(BASE + "/p/ashok",{"likes":999, "comments":12})
 print(response.json)
 
-input()
+# print(f"{BASE} + /p/ashok")
+# response = requests.get(BASE + "/p/ashok")
+# print(response.json)
 
-response = requests.get(BASE + "/p/asdasd")
+
+# input()
+# print(f"{BASE} + /ram")
+# response = requests.put(BASE + "/ram",{"name":"ram", "email":"dsa"})
+# print(response.json)
