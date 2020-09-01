@@ -1,5 +1,6 @@
 import os
 import json
+from bson.json_util import dumps
 from flask import Flask, redirect, url_for, request, render_template, abort, jsonify
 from flask_restful import Api, Resource, reqparse
 from pymongo import MongoClient
@@ -69,10 +70,12 @@ user_put_args.add_argument("email", type=str, required=True)
 
 class User(Resource):
 	def get(self, id):
-		if users.count_documents({ 'userid': id }, limit = 1) != 0:
-			abort(404)
+		if users.find_one({'userid': id}):
+			user = users.find_one({'userid': id})
+			resp = dumps(user)
+			return resp
 		else:
-			return users[id]
+			return 'Error 404 - Not Found', 404
 
 	def put(self, id):
 		args = user_put_args.parse_args()
@@ -82,16 +85,9 @@ class User(Resource):
 			'email':args.email
 		}
 
-		with open("userput.txt", "w") as text_file:
-			if users.count_documents({ 'userid': id }, limit = 1) != 0:
-				text_file.write(f"already exists\n")
-			# text_file.write(f"userid:{id}\n")
-			# for x in users.find({},{ "_id": 0,"userid": 1 }):
-			# 	text_file.write(str(x))
-
 
 		# to check if user already exists
-		if users.count_documents({ 'userid': id }, limit = 1) != 0:
+		if users.find_one({'userid': id}):
 			return '', 409
 		else:
 			users.insert_one(new)
