@@ -80,10 +80,17 @@ class User(Resource):
 			'username':args.username,
 			'email':args.email
 		}
+
+		# to check if user already exists
+		if {'userid':id} in users.find({},{ "_id": 0,"userid": 1 }):
+			return '', 409
+		else:
+			users.insert_one(new)
+			return 201
+
 		# with open("userput.txt", "w") as text_file:
 		# 	text_file.write(str(new))
-		users.insert_one(new)
-		return 201
+
 
 
 
