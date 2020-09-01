@@ -8,8 +8,9 @@ from pymongo import MongoClient
 app = Flask(__name__)
 api = Api(app)
 
-client = MongoClient( os.environ['DB_PORT_27017_TCP_ADDR'],
-			27017)
+client = MongoClient(
+    os.environ['DB_PORT_27017_TCP_ADDR'],
+    27017)
 db = client["mydatabase"]
 users = db["myusers"]
 posts = db["myposts"]
@@ -68,10 +69,10 @@ user_put_args.add_argument("email", type=str, required=True)
 
 class User(Resource):
 	def get(self, id):
-		if iname not in Users:
+		if users.count_documents({ 'userid': id }, limit = 1) != 0:
 			abort(404)
 		else:
-			return Users[name]
+			return users[id]
 
 	def put(self, id):
 		args = user_put_args.parse_args()
@@ -81,15 +82,22 @@ class User(Resource):
 			'email':args.email
 		}
 
+		with open("userput.txt", "w") as text_file:
+			if users.count_documents({ 'userid': id }, limit = 1) != 0:
+				text_file.write(f"already exists\n")
+			# text_file.write(f"userid:{id}\n")
+			# for x in users.find({},{ "_id": 0,"userid": 1 }):
+			# 	text_file.write(str(x))
+
+
 		# to check if user already exists
-		if {'userid':id} in users.find({},{ "_id": 0,"userid": 1 }):
+		if users.count_documents({ 'userid': id }, limit = 1) != 0:
 			return '', 409
 		else:
 			users.insert_one(new)
-			return 201
+			return '', 201
 
-		# with open("userput.txt", "w") as text_file:
-		# 	text_file.write(str(new))
+
 
 
 
