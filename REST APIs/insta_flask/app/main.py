@@ -67,23 +67,23 @@ user_put_args.add_argument("username", type=str, required=True)
 user_put_args.add_argument("email", type=str, required=True)
 
 class User(Resource):
-	def get(self, iname):
+	def get(self, id):
 		if iname not in Users:
 			abort(404)
 		else:
 			return Users[name]
 
-	def put(self, iname):
+	def put(self, id):
 		args = user_put_args.parse_args()
 		new = {
-			'userid':str(iname),
+			'userid':str(id),
 			'username':args.username,
 			'email':args.email
 		}
-		with open("userput.txt", "w") as text_file:
-			text_file.write(str(new))
+		# with open("userput.txt", "w") as text_file:
+		# 	text_file.write(str(new))
 		users.insert_one(new)
-		return 200
+		return 201
 
 
 
@@ -96,7 +96,7 @@ class Index(Resource):
 
 api.add_resource(Index, "/")
 api.add_resource(todo, "/todo")
-api.add_resource(User, "/<string:iname>")
+api.add_resource(User, "/<string:id>")
 api.add_resource(Post, "/p/<string:id>")
 
 
