@@ -13,12 +13,6 @@ client = MongoClient( os.environ['DB_PORT_27017_TCP_ADDR'],
 db = client["mydatabase"]
 users = db["myusers"]
 posts = db["myposts"]
-mydict = { "name": "John", "address": "Highway 37" }
-users.insert_one(mydict)
-# mycol = db["tempcol"]
-# Users = db.mydb.find()
-# mycol = db["tempcol"]
-
 
 
 post_put_args = reqparse.RequestParser()
@@ -28,16 +22,17 @@ post_put_args.add_argument("comments", type=int, required=True)
 class todo(Resource):
 	def get(self):
 		# name1 = client.list_database_names()
-		# with open("todo.txt", "w") as text_file:
-		dict = {}
-			# dict = users.find({},{ "_id": 0,"address": 1 })
+		with open("todo.txt", "w") as text_file:
+			for x in users.find():
+				text_file.write(str(x))
 			# tempp = json.dumps(dict, indent=4)
 			# text_file.write(str(users.find({},{ "_id": 0,"address": 1 })))
 			# text_file.write(f"database names:{client.list_database_names()}")
 			# text_file.write(f"collection names:{db.list_collection_names()}")
-		for x in users.find({},{ "_id": 0,"address": 1 }):
+		dict = {}
+		for x in users.find():
 			dict.update({"key":str(x)})
-			# text_file.write(str(x))
+			#
 
 		# print(items)
 		# dict = users.find()
@@ -66,6 +61,11 @@ class Post(Resource):
 			text_file.write(str(new))
 		return args,201
 
+
+user_put_args = reqparse.RequestParser()
+user_put_args.add_argument("username", type=str, required=True)
+user_put_args.add_argument("email", type=str, required=True)
+
 class User(Resource):
 	def get(self, iname):
 		if iname not in Users:
@@ -74,17 +74,18 @@ class User(Resource):
 			return Users[name]
 
 	def put(self, iname):
-		# tempuser = {
-		# 	'username':name
-		#
-		# }
-		# tempuser = {"user1": {"email":"user1@gmail.com", "username":"User 1"}}
+		args = user_put_args.parse_args()
 		new = {
-			'dbname':iname[name],
-			'dbemail':iname[email]
+			'userid':str(iname),
+			'username':args.username,
+			'email':args.email
 		}
-		db.mydb.insert_one(new)
-		return new
+		with open("userput.txt", "w") as text_file:
+			text_file.write(str(new))
+		users.insert_one(new)
+		return 200
+
+
 
 class Index(Resource):
 	def get(self):
