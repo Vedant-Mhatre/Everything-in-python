@@ -17,10 +17,6 @@ users = db["myusers"]
 posts = db["myposts"]
 
 
-post_put_args = reqparse.RequestParser()
-post_put_args.add_argument("likes", type=int, required=True)
-post_put_args.add_argument("comments", type=int, required=True)
-
 class todo(Resource):
 	def get(self):
 		# name1 = client.list_database_names()
@@ -41,6 +37,27 @@ class todo(Resource):
 		tempp = json.dumps(dict, indent=4)
 		return tempp
 
+post_args = reqparse.RequestParser()
+post_args.add_argument("caption", type=str, default="")
+post_args.add_argument("likes", type=int, required=True)
+post_args.add_argument("comments", type=str, required=True)
+
+# POST - for creating new post
+#         args - postid, caption
+#         return 201
+#
+# PUT - for updating post
+#         args - caption, likes, comments
+#         return 200
+#
+# GET - for getting post
+#         args - postid
+#         return postid, caption, likes, comments, 200
+
+
+
+
+
 class Post(Resource):
 	def get(self, id):
 		with open("getpost.txt", "w") as text_file:
@@ -52,6 +69,18 @@ class Post(Resource):
 		return json.dumps(mydoc, default=str)
 
 	def put(self,id):
+		args = post_put_args.parse_args()
+		new = {'postid':str(id),
+				'dblikes':args.likes,
+				'dbcomments':args.comments
+		}
+		db.mydb.insert_one(new)
+		# posts[id] = args
+		with open("Output.txt", "w") as text_file:
+			text_file.write(str(new))
+		return args,201
+
+    def post(self,id):
 		args = post_put_args.parse_args()
 		new = {'postid':str(id),
 				'dblikes':args.likes,
