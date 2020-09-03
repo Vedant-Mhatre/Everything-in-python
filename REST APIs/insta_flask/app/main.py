@@ -38,59 +38,67 @@ class todo(Resource):
 		return tempp
 
 post_args = reqparse.RequestParser()
-post_args.add_argument("caption", type=str, default="")
-post_args.add_argument("likes", type=int, required=True)
-post_args.add_argument("comments", type=str, required=True)
+post_args.add_argument("userid", type=str, required=True)
+post_args.add_argument("caption", type=str)
+post_args.add_argument("likes", type=int)
+post_args.add_argument("comments", type=str)
 
 # POST - for creating new post
-#         args - postid, caption
+#         args - postid, caption, userid
 #         return 201
 #
 # PUT - for updating post
-#         args - caption, likes, comments
+#         args - postid, caption, userid, likes, comments
+#               if userid does not belong to postid's original userid it won't \
+#               update changes
 #         return 200
 #
 # GET - for getting post
 #         args - postid
-#         return postid, caption, likes, comments, 200
+#         return postid, userid, caption, likes, comments, 200
 
-
-
-
+# if posts.find_one({'postid': id}):
+#     return f'Post with id:{id} already exists', 400
+# else:
+    # args = post_args.parse_args()
 
 class Post(Resource):
-	def get(self, id):
-		with open("getpost.txt", "w") as text_file:
-			temp1 = db.mydb.find()
-			# items = [item for item in temp1]
-			myquery	= {"postid":id}
-			mydoc = db.mydb.find(myquery)
-			text_file.write(str(mydoc))
-		return json.dumps(mydoc, default=str)
-
-	def put(self,id):
-		args = post_put_args.parse_args()
-		new = {'postid':str(id),
-				'dblikes':args.likes,
-				'dbcomments':args.comments
-		}
-		db.mydb.insert_one(new)
-		# posts[id] = args
-		with open("Output.txt", "w") as text_file:
-			text_file.write(str(new))
-		return args,201
-
     def post(self,id):
-		args = post_put_args.parse_args()
-		new = {'postid':str(id),
-				'dblikes':args.likes,
-				'dbcomments':args.comments
-		}
-		db.mydb.insert_one(new)
-		# posts[id] = args
-		with open("Output.txt", "w") as text_file:
-			text_file.write(str(new))
-		return args,201
+        if posts.find_one({'postid': id}):
+            return f'Post with id:{id} already exists', 400
+        else:
+            json_data = request.get_json()
+            args = post_args.parse_args()
+            new = {'postid':id,
+                'userid':args.userid
+            }
+            posts.insert_one(new)
+            return '',201
+
+    def put(self,id):
+        args = post_args.parse_args()
+        filter = {
+            'postid':id,
+            'userid':args.userid
+        }
+        newvalues = {
+            '$set':{
+                'caption':args.caption,
+                'likes':args.likes,
+                'comments':args.comments
+            }
+        }
+        posts.update_one(filter, newvalues)
+        return '',201
+
+    def get(self, id):
+        if posts.find_one({'postid': id}):
+            post = posts.find_one({'postid': id})
+            resp = dumps(post)
+            return resp
+        else:
+            return 'Error 404 - Post Not Found', 404
+
 
 
 user_put_args = reqparse.RequestParser()
@@ -104,7 +112,7 @@ class User(Resource):
 			resp = dumps(user)
 			return resp
 		else:
-			return 'Error 404 - Not Found', 404
+			return 'Error 404 - User Not Found', 404
 
 	def put(self, id):
 		args = user_put_args.parse_args()
