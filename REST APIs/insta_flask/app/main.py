@@ -18,8 +18,10 @@ posts = db["myposts"]
 
 
 class todo(Resource):
-	def get(self):
-		return '',200
+    def get(self):
+        all_users  = users.find({}, {"_id":0})
+        resp = dumps(all_users)
+        return resp
 
 post_args = reqparse.RequestParser()
 post_args.add_argument("userid", type=str, required=True)
