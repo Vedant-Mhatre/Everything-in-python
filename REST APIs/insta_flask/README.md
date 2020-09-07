@@ -9,7 +9,6 @@ MongoDB will be used as database and deployment using docker
 ### Prerequisites
 * Docker
 * Docker-compose
-docker-compose file builds an image using the Dockerfile inside app directory, pulls mongodb image and links them together.
 
 ### Installing
 
