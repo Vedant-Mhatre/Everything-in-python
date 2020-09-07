@@ -19,23 +19,7 @@ posts = db["myposts"]
 
 class todo(Resource):
 	def get(self):
-		# name1 = client.list_database_names()
-		with open("todo.txt", "w") as text_file:
-			for x in users.find():
-				text_file.write(str(x))
-			# tempp = json.dumps(dict, indent=4)
-			# text_file.write(str(users.find({},{ "_id": 0,"address": 1 })))
-			# text_file.write(f"database names:{client.list_database_names()}")
-			# text_file.write(f"collection names:{db.list_collection_names()}")
-		dict = {}
-		for x in users.find():
-			dict.update({"key":str(x)})
-			#
-
-		# print(items)
-		# dict = users.find()
-		tempp = json.dumps(dict, indent=4)
-		return tempp
+		return '',200
 
 post_args = reqparse.RequestParser()
 post_args.add_argument("userid", type=str, required=True)
@@ -46,7 +30,7 @@ post_args.add_argument("comments", type=str)
 # POST - for creating new post
 #         args - postid, caption, userid
 #         return 201
-#
+#resp
 # PUT - for updating post
 #         args - postid, caption, userid, likes, comments
 #               if userid does not belong to postid's original userid it won't \
@@ -57,10 +41,6 @@ post_args.add_argument("comments", type=str)
 #         args - postid
 #         return postid, userid, caption, likes, comments, 200
 
-# if posts.find_one({'postid': id}):
-#     return f'Post with id:{id} already exists', 400
-# else:
-    # args = post_args.parse_args()
 
 class Post(Resource):
     def post(self,id):
@@ -136,11 +116,10 @@ class User(Resource):
 
 
 class Index(Resource):
-	def get(self):
-		# storetempdataindb()
-		# users = [user for user in Users]
-		# print(users)
-		return None
+    def get(self):
+        all_posts  = posts.find({}, {"_id":0})
+        resp = dumps(all_posts)
+        return resp
 
 api.add_resource(Index, "/")
 api.add_resource(todo, "/todo")
