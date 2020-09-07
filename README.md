@@ -8,7 +8,6 @@ The goal of this project is to maintain a single repository for starter codes of
 ### Prerequisites
 * Docker
 * Docker-compose
-docker-compose file builds an image using the Dockerfile inside app directory, pulls mongodb image and links them together.
 
 ### Installing
 
