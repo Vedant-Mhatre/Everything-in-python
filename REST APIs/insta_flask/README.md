@@ -32,7 +32,6 @@ cd Everything-in-python/REST\ APIs/insta_flask
 ```
 
 3. Build the container according to desired configuration.
- Docker-compose file builds an image using the Dockerfile inside app directory, pulls mongodb image and links them together.
 
 ```
 docker-compose build
