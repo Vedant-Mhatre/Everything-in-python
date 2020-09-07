@@ -17,7 +17,7 @@ users = db["myusers"]
 posts = db["myposts"]
 
 
-class todo(Resource):
+class temp(Resource):
     def get(self):
         all_users  = users.find({}, {"_id":0})
         resp = dumps(all_users)
@@ -124,7 +124,7 @@ class Index(Resource):
         return resp
 
 api.add_resource(Index, "/")
-api.add_resource(todo, "/todo")
+api.add_resource(temp, "/temp")
 api.add_resource(User, "/<string:id>")
 api.add_resource(Post, "/p/<string:id>")
 
