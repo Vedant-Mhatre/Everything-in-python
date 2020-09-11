@@ -1,7 +1,7 @@
 # Everything in Python
 
 ## About
-The goal of this project is to maintain a single repository for starter codes of simple python algorithms, scripts, REST api implemenation.
+The goal of this project is to maintain a single repository for starter codes of simple python algorithms, scripts, REST API implemenation.
 
 ## Getting Started
 
@@ -33,8 +33,8 @@ Checkout README file inside each folder for more information
 
 Completed Things:
 1. Web:
-* [Mongo Flask]() Simple code for connecting mongodb to flask application and deployment using docker
-* [Insta Flask]() Simple implementation of Instagram REST apis using flask. MongoDB will be used as database and deployment using docker
+* [Mongo Flask](https://github.com/Vedant-Mhatre/Everything-in-python/tree/master/Web/Mongo-Flask) Simple code for connecting mongodb to flask application and deployment using docker
+* [Insta Flask](https://github.com/Vedant-Mhatre/Everything-in-python/tree/master/Web/Insta-Flask) Simple implementation of Instagram REST apis using flask. MongoDB will be used as database and deployment using docker
 
 2. Algorithms:
 * [Graphs/DFS](https://github.com/Vedant-Mhatre/Everything-in-python/tree/master/Algorithms/graphs/Depth_First_Search) Simple implementation of Depth First Search inside a graph
