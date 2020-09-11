@@ -31,5 +31,10 @@ cd Everything-in-python
 
 Checkout README file inside each folder for more information
 
+Completed Things:
+1. Web:
+* [Mongo Flask]() Simple code for connecting mongodb to flask application and deployment using docker
+* [Insta Flask]() Simple implementation of Instagram REST apis using flask. MongoDB will be used as database and deployment using docker
 
-PS. Currently focusing on REST apis using flask, mongoDB for database and docker for smooth deployment.
+2. Algorithms:
+* [Graphs/DFS](https://github.com/Vedant-Mhatre/Everything-in-python/tree/master/Algorithms/graphs/Depth_First_Search) Simple implementation of Depth First Search inside a graph
