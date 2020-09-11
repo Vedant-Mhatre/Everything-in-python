@@ -27,7 +27,7 @@ remote: Counting objects: 100% (113/113), done.
 remote: Compressing objects: 100% (80/80), done.
 Receiving objects: 100% (2845/2845), 12.52 MiB | 5.21 MiB/s, done.
 
-cd Everything-in-python/REST\ APIs/insta_flask
+cd Everything-in-python/Web/Insta-Flask
 ```
 
 3. Build the container according to desired configuration.
