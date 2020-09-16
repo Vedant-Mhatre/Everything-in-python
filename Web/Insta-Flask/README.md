@@ -99,6 +99,11 @@ app_1  |  * Debugger is active!
 app_1  |  * Debugger PIN: 188-908-057
 ```
 
+## To Do
+- [ ] Use latest mongodb image
+- [ ] Use yaml version 3
+- [ ] Add documentation
+
 ## Built With
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) Flask is a micro web framework written in Python
 * [flask_restful](https://flask-restful.readthedocs.io/en/latest/) An extension for Flask that adds support for quickly building REST APIs.
