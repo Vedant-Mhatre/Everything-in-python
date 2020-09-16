@@ -115,6 +115,11 @@ web_1  |  * Debugger PIN: 749-702-492
 
 ```
 
+## To Do
+- [ ] Use latest mongodb image
+- [ ] Use yaml version 3
+- [ ] Add documentation
+
 ## Built With
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) Flask is a micro web framework written in Python
 * [pymongo](https://pymongo.readthedocs.io/en/stable/) Python distribution containing tools for working with MongoDB, and is the recommended way to work with MongoDB from Python.
