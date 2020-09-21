@@ -38,3 +38,6 @@ Completed Things:
 
 2. Algorithms:
 * [Graphs/DFS](https://github.com/Vedant-Mhatre/Everything-in-python/tree/master/Algorithms/graphs/Depth_First_Search) Simple implementation of Depth First Search inside a graph
+
+
+## Looking for collaborators
